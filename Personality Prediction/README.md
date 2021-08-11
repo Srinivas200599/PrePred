@@ -8,11 +8,6 @@ Here are a set of experiments written in tensorflow + pytorch to explore automat
 
 ## Installation
 
-Pull this repository from GitLab via:
-
-```bash
-git clone git@gitlab.com:ml-automated-personality-detection/personality.git
-```
 
 See the requirements.txt for the list of dependent packages which can be installed via:
 
@@ -20,7 +15,7 @@ See the requirements.txt for the list of dependent packages which can be install
 pip -r requirements.txt
 ```
 
-## Usage
+## Usage for MLP Algo
 First run the LM extractor code which passes the dataset through the language model and stores the embeddings (of all layers) in a pickle file. Creating this 'new dataset' saves us a lot of compute time and allows effective searching of the hyperparameters for the finetuning network. Before running the code, create a pkl_data folder in the repo folder. All the arguments are optional and passing no arguments runs the extractor with the default values.
 
 ```bash
@@ -33,19 +28,20 @@ Next run the finetuning network which is currently a MLP.
 python finetuneNet.py
 ```
 
-## Running Time
+
+## Usage for CNN Algo
+
+First run sent_bert.py in finetune_models folder to get sentence wise embeddings of all articles.
 
 ```bash
-LM_extractor.py
+python3 finetune_models/sent_bert.py -g -l 100 data/bert_cnn.csv data/train_bert.tsv
 ```
-On a RTX2080 GPU, the -embed 'bert-base' extractor takes about ~2m 30s and 'bert-large' takes about ~5m 30s
-
-On a CPU, 'bert-base' extractor takes about ~25m
+next run the CNN_bert.py file to pass the embeddings through CNN algorithm.
+Need to change index in line 31 of  CNN_bert.py (range 2-5) for predicting each category of MBTI.
 
 ```bash
-finetuneNet.py
+python CNN_bert.py data/train_bert.tsv
 ```
-On a RTX2080 GPU, running for 15 epochs (with no cross-validation) takes from 5s-60s, depending on the MLP architecture.
 
 ## Citation
 
