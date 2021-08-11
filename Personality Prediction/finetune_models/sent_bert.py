@@ -95,7 +95,7 @@ NRC_path1 = "psycholinguistic_extractors/meta_features_data/NRC-Emotion-Lexicon.
 NRC_df1 = pd.read_excel(NRC_path1, index_col=0)
 NRC_path2 = "psycholinguistic_extractors/meta_features_data/NRC-VAD-Lexicon.txt"
 NRC_df2 = pd.read_csv(NRC_path2, index_col=['Word'], sep='\t')
-df = pd.read_csv("/content/drive/My Drive/Colab Notebooks/personality-prediction-master/data/kaggle/kaggle.csv")
+df = pd.read_csv("/data/kaggle/kaggle.csv")
 
 for i in df.index:
   df['text'][i] = preprocess_text(df['text'][i])
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     print("Processing lines...")
     with open(outfile, "wt", encoding="utf8") as outp:
         nlines=0
-        for index in range(0,len(df.index)-7200):
+        for index in range(0,len(df.index)):
             lines = sent_tokenize(df['text'][index])
             fields=[]
             sents=[]
