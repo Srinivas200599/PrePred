@@ -1,0 +1,8 @@
+torch   #for the LM_extractor
+torchvision
+tweet-preprocessor
+transformers #HuggingFace library
+numpy 
+readability
+pandas
+tensorflow
